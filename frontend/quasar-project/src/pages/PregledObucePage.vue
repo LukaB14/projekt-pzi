@@ -5,13 +5,13 @@
       outlined 
       debounce="300" 
       v-model="filterText" 
-      placeholder="Pretraži odjeću..." 
+      placeholder="Pretraži obuću..." 
       class="q-mb-md"
     />
 
-    <!-- Tabela za prikaz odjeće -->
+    <!-- Tabela za prikaz obuće -->
     <q-table
-      title="Odjeća"
+      title="Obuća"
       :rows="filteredRows"
       :columns="columns"
       row-key="Id"
@@ -20,7 +20,7 @@
         <q-btn
           color="red"
           icon="delete"
-          @click="deleteOdjeca(props.row.Id)"
+          @click="deleteObuca(props.row.Id)"
           label="Obriši"
           flat
         />
@@ -34,12 +34,13 @@ import { ref, computed } from 'vue';
 import axios from 'axios';
 
 const columns = [
-  { name: 'Id', required: true, align: 'left', label: 'ID odjeće', field: 'Id', sortable: true },
-  { name: 'VelicinaOdjece', required: true, align: 'left', label: 'Veličina odjeće', field: 'VelicinaOdjece', sortable: true },
+  { name: 'Id', required: true, align: 'left', label: 'ID obuće', field: 'Id', sortable: true },
+  { name: 'VelicinaObuce', required: true, align: 'left', label: 'Veličina obuće', field: 'VelicinaObuce', sortable: true },
   { name: 'Cijena', align: 'left', label: 'Cijena', field: 'Cijena', sortable: true },
-  { name: 'MarkaOdjece', align: 'left', label: 'Marka Odjeće', field: 'MarkaOdjece', sortable: true },
-  { name: 'VrstaOdjece', align: 'left', label: 'Vrsta Odjeće', field: 'VrstaOdjece' },
-  { name: 'actions', align: 'center', label: 'Akcije', field: 'actions' },
+  { name: 'MarkaObuce', align: 'left', label: 'Marka obuće', field: 'MarkaObuce', sortable: true },
+  { name: 'VrstaObuce', align: 'left', label: 'Vrsta obuće', field: 'VrstaObuce' },
+  { name: 'Boja', align: 'left', label: 'Boja', field: 'Boja' },
+  { name: 'actions', align: 'center', label: 'Brisanje', field: 'actions' },
 ];
 
 const rows = ref([]);
@@ -73,19 +74,19 @@ export default {
     // Učitavanje podataka iz API-ja
     async loadData() {
       try {
-        const result = await axios.get('http://localhost:3000/api/odjeca/');
+        const result = await axios.get('http://localhost:3000/api/obuca/');
         this.rows = result.data;
       } catch (error) {
         console.error(error);
       }
     },
-    // Brisanje odjeće prema ID-u
-    async deleteOdjeca(id) {
-      if (confirm('Jeste li sigurni da želite obrisati ovu odjeću?')) {
+    // Brisanje obuće prema ID-u
+    async deleteObuca(id) {
+      if (confirm('Jeste li sigurni da želite obrisati ovu obuću?')) {
         try {
-          await axios.delete(`http://localhost:3000/api/odjeca/${id}`);
+          await axios.delete(`http://localhost:3000/api/obuca/${id}`);
           this.rows = this.rows.filter(row => row.Id !== id);
-          alert('Odjeća uspješno obrisana.');
+          alert('Obuća uspješno obrisana.');
         } catch (error) {
           console.error(error);
           alert('Došlo je do greške prilikom brisanja.');

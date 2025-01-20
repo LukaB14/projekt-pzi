@@ -37,23 +37,33 @@ app.get("/api/odjeca", (request, response) => {
     });
 });
 
-app.get("/api/odjeca/:id", (request, response) => {
-    const id = request.params.id;
-    connection.query("SELECT * FROM PziOdjeca WHERE id = ?", id, (error, results) => {
-        if (error) throw error;
-        response.send(results);
-      });
+app.get("/api/obuca", (request, response) => {
+    
+  connection.query("SELECT * FROM PziObuca", (error, results) => {
+    if (error) throw error;
+    response.send(results);
+  });
 });
 
 app.post("/api/rezerv_odjece", (request, response) => {
     const data = request.body;
-    rezervacija = [[data.datum, data.id_odjece, data.korisnik]]
+    rezervacija = [[data.DatumRezervacije, data.Korisnik ,data.IdOdjece, data.IdObuce]]
 
-    connection.query("INSERT INTO PziRezervacija (DatumRezervacije, IdOdjece, korisnik) VALUES ?", [rezervacija], (error, results) => {
+    connection.query("INSERT INTO PziRezervacija (DatumRezervacije, Korisnik, IdOdjece, IdObuce) VALUES ?", [rezervacija], (error, results) => {
       if (error) throw error;
       response.send(results);
     });
   });
+
+  app.get("/api/rezervacija", (request, response) => {
+    
+    connection.query("SELECT * FROM PziRezervacija", (error, results) => {
+      if (error) throw error;
+      response.send(results);
+    });
+  });
+
+  
 
   app.post("/api/unos_odjece", (request, response) => {
     const data = request.body;
@@ -64,6 +74,34 @@ app.post("/api/rezerv_odjece", (request, response) => {
       response.send(results);
     });
   });
+
+  app.post("/api/unos_obuce", (request, response) => {
+    const data = request.body;
+    obuca = [[data.VelicinaObuce, data.Cijena, data.MarkaObuce, data.VrstaObuce, data.Boja]]
+
+    connection.query("INSERT INTO PziObuca (VelicinaObuce, Cijena, MarkaObuce, VrstaObuce, Boja) VALUES ?", [obuca], (error, results) => {
+      if (error) throw error;
+      response.send(results);
+    });
+  });
+
+  app.delete("/api/odjeca/:id", (request, response) => {
+    const id = request.params.id;
+    connection.query("DELETE FROM PziOdjeca WHERE Id = ?", [id], (error, results) => {
+      if (error) throw error;
+      response.send({ message: "Odjeća uspješno obrisana", results });
+    });
+  });
+
+  app.delete("/api/obuca/:id", (request, response) => {
+    const id = request.params.id;
+    connection.query("DELETE FROM PziObuca WHERE Id = ?", [id], (error, results) => {
+      if (error) throw error;
+      response.send({ message: "Obuća uspješno obrisana", results });
+    });
+  });
+
+  
 
   app.listen(port, () => {
     console.log("Server running at port: " + port);

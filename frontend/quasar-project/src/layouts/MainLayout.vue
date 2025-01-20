@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Izbornik
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        
       </q-toolbar>
     </q-header>
 
@@ -53,26 +53,44 @@ const linksList = [
    {
     title: 'Početna',
     caption: 'Početna stranica',
-    icon: 'school',
+    icon: 'home',
     link: '/'
   },
   {
     title: 'Pregled odjeće',
     caption: 'Pregled sve odjeće',
-    icon: 'chat',
+    icon: 'inventory',
     link: '#/pregled_odjece/'
+  },
+  {
+    title: 'Pregled obuće',
+    caption: 'Pregled sve obuće',
+    icon: 'directions_walk',
+    link: '#/pregled_obuce/'
+  },
+   {
+    title: 'Pregled rezervacija',
+    caption: 'Pregled svih rezervacija',
+    icon: 'event',
+    link: '#/pregled_rezervacija/'
   },
   {
     title: 'Unos odjeće',
     caption: 'Unos nove odjeće',
-    icon: 'code',
+    icon: 'add_circle',
     link: '#/unos_odjece/'
+  },
+  {
+    title: 'Unos obuće',
+    caption: 'Unos nove obuće',
+    icon: 'add_circle',
+    link: '#/unos_obuce/'
   },
   {
     title: 'Unos rezervacije',
     caption: 'Unos rezervacije',
-    icon: 'record_voice_over',
-    link: '#/rezervacija_odjece'
+    icon: 'add_circle_outline',
+    link: '#/rezerv_odjece'
   },
 ]
 
